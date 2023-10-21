@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Navigation } from "../components";
+import { Footer } from "../components/Footer";
 
 export const Layout = () => {
   return (
@@ -8,10 +9,7 @@ export const Layout = () => {
       <div className="px-7 m-auto max-w-7xl">
         <Outlet />
       </div>
-      <footer className="dark:bg-gray-900 py-10 px-6 dark:text-white">
-        <span>&copy; </span>Derechos reservados{" "}
-        <span>{new Date().getFullYear()}</span>
-      </footer>
+      <Footer />
     </>
   );
 };
