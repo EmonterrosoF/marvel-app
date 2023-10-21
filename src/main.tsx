@@ -5,13 +5,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import { NextUIProvider } from "@nextui-org/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <React.StrictMode>
+  // <React.StrictMode>
+  <QueryClientProvider client={queryClient}>
     <NextUIProvider>
-      <main className="dark bg-background main">
+      <main className=" bg-background main">
         <App />
       </main>
     </NextUIProvider>
-  </React.StrictMode>
+  </QueryClientProvider>
 );
