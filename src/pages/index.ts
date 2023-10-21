@@ -1,4 +1,6 @@
 export { About } from "./About";
-export { Heroes } from "./heroes/Heroes";
+export { Characters } from "./characters/Characters";
 export { Error } from "./Error";
 export { Home } from "./Home";
+export { Character } from "./Character";
+
