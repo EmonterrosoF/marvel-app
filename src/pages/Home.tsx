@@ -4,6 +4,8 @@ import { Image } from "@nextui-org/react";
 import spiderMan from "../assets/spiderMan.png";
 import wrapperIronMan from "../assets/wrapperIronMan.jpg";
 
+import Atropos from "atropos/react";
+
 export const Home = () => {
   return (
     <section className="relative">
@@ -42,13 +44,15 @@ export const Home = () => {
         className="flex flex-col items-center justify-center"
         style={{ marginTop: "-130px", paddingBottom: "70px" }}
       >
-        <Image
-          className="float-right transform hover:scale-110 transition duration-50 py-7"
-          isBlurred
-          width={400}
-          src={umgImage}
-          alt="Logo UMG"
-        />
+        <Atropos className="z-20" rotateXMax={30} rotateYMax={30} stretchZ={30}>
+          <Image
+            className="float-right transform hover:scale-110 transition duration-50 py-7 px-7"
+            isBlurred
+            width={400}
+            src={umgImage}
+            alt="Logo UMG"
+          />
+        </Atropos>
 
         <h2 className="z-10 text-4xl font-extrabold text-transparent bg-gradient-to-r from-cyan-400 to-cyan-600 bg-clip-text my-4">
           Universidad Mariano Gálvez de Guatemala
