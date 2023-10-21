@@ -48,7 +48,7 @@ export const Character = () => {
                     className="card content animated cursor-pointer"
                   ></div>
                   <h1 className="text-7xl font-extrabold">{result.name}</h1>
-                  <h1 className="text-7xl font-extrabold text-red-700 dark:text-white">
+                  <h1 className="text-7xl font-extrabold text-red-700    dark:text-white">
                     {result.name}
                   </h1>
                 </div>
