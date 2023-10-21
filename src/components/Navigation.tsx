@@ -8,13 +8,16 @@ import {
   NavbarMenu,
   NavbarMenuItem,
   NavbarMenuToggle,
+  Switch,
 } from "@nextui-org/react";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { IconApiMarvel, IconMarvel } from "./icons/";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { SunIcon } from "./icons/SunIcon";
+import { MoonIcon } from "./icons/MoonIcon";
 
 enum Color {
   FOREGROUND = "foreground",
@@ -33,13 +36,13 @@ const menuItems = [
   },
   {
     title: "HÈROES",
-    href: "heroes",
+    href: "/characters",
     isActive: false,
     color: Color.FOREGROUND,
   },
   {
     title: "ACERCA DE",
-    href: "about",
+    href: "/about",
     isActive: false,
     color: Color.FOREGROUND,
   },
@@ -48,11 +51,40 @@ const menuItems = [
 export const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const [isDark, setIsDark] = useState(() => {
+    const mode = localStorage.getItem("mode");
+
+    if (mode === null) {
+      return false;
+    }
+
+    return mode === "dark" ? true : false;
+  });
+
+  useEffect(() => {
+    isDark
+      ? (document.querySelector(".main")?.classList.add("dark"),
+        localStorage.setItem("mode", "dark"))
+      : (document.querySelector(".main")?.classList.remove("dark"),
+        localStorage.setItem("mode", "light"));
+  }, [isDark]);
+
+  const { pathname } = useLocation();
+
+  const path = pathname.split("/")[1];
+
+  menuItems.forEach((menuItem) => {
+    menuItem.href === `/${path}`
+      ? ((menuItem.isActive = true), (menuItem.color = Color.DANGER))
+      : ((menuItem.isActive = false), (menuItem.color = Color.FOREGROUND));
+  });
+
   return (
     <Navbar
       onMenuOpenChange={setIsMenuOpen}
       shouldHideOnScroll={!isMenuOpen}
       maxWidth="xl"
+      isMenuOpen={isMenuOpen}
     >
       {/* ---------------responsive------------------- */}
       <NavbarContent className="sm:hidden" justify="start">
@@ -105,6 +137,16 @@ export const Navigation = () => {
             <IconApiMarvel />
           </Button>
         </NavbarItem>
+        <NavbarItem>
+          <Switch
+            defaultChecked={isDark}
+            size="lg"
+            color="success"
+            startContent={isDark ? <SunIcon /> : <MoonIcon />}
+            endContent={isDark ? <SunIcon /> : <MoonIcon />}
+            onClick={() => setIsDark((isDark) => !isDark)}
+          ></Switch>
+        </NavbarItem>
       </NavbarContent>
 
       <div className="dark:bg-black">
@@ -117,7 +159,11 @@ export const Navigation = () => {
                   className={item.isActive ? "" : "text-fuchsia-500"}
                   size="lg"
                 >
-                  <Link className="dark:text-white" to={item.href}>
+                  <Link
+                    onClick={() => setIsMenuOpen(false)}
+                    className="dark:text-white"
+                    to={item.href}
+                  >
                     {item.title}
                   </Link>
                 </LinkUI>
